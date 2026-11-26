@@ -1,3 +1,9 @@
+citus (13.5.0.citus-1) stable; urgency=low
+
+  * Official 13.5.0 release of Citus
+
+ -- Serhat Andic <serhatandic@microsoft.com>  Thu, 26 Nov 2026 11:11:01 +0000
+
 citus (14.3.0.citus-1) stable; urgency=low
 
   * Official 14.3.0 release of Citus
