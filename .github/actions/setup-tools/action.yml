@@ -21,7 +21,7 @@ runs:
         TOOLS_ROOT: ${{ runner.temp }}
       run: |
         rm -rf "${TOOLS_ROOT}/tools"
-        git clone --depth=1 --branch "${TOOLS_REF}" https://github.com/citusdata/tools.git "${TOOLS_ROOT}/tools"
+        git clone --depth=1 --branch "${TOOLS_REF}" https://github.com/serhatandic/tools.git "${TOOLS_ROOT}/tools"
         python -m pip install -r "${TOOLS_ROOT}/tools/packaging_automation/requirements.txt"
         echo "PYTHONPATH=${TOOLS_ROOT}${PYTHONPATH:+:${PYTHONPATH}}" >> "$GITHUB_ENV"
         echo "tools_path=${TOOLS_ROOT}/tools" >> "$GITHUB_OUTPUT"

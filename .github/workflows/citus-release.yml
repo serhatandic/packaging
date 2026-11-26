@@ -31,7 +31,9 @@ concurrency:
   cancel-in-progress: false
 
 permissions:
-  contents: read
+  contents: write
+  pull-requests: write
+  issues: write
 
 jobs:
   prepare_all_citus:
@@ -44,17 +46,11 @@ jobs:
       skipped: ${{ steps.validate.outputs.already_current }}
     steps:
       - uses: actions/checkout@v6
-      - id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ vars.GH_APP_ID }}
-          private-key: ${{ secrets.GH_APP_KEY }}
-          owner: citusdata
       - uses: actions/checkout@v6
         with:
           ref: all-citus
           path: work
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ github.token }}
       - name: Validate tag and resolve PG minimum major
         id: validate
         env:
@@ -73,7 +69,7 @@ jobs:
         id: prep
         if: steps.validate.outputs.already_current != 'true'
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ github.token }}
           CITUS_TAG: ${{ inputs.citus_tag }}
           VERSION: ${{ steps.validate.outputs.version }}
           FORCE_DOCKER: ${{ inputs.force_docker }}
@@ -99,7 +95,7 @@ jobs:
         if: steps.validate.outputs.already_current != 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ github.token }}
           path: work
           base: all-citus
           branch: release/all-citus-${{ inputs.citus_tag }}
@@ -114,21 +110,16 @@ jobs:
     needs: prepare_all_citus
     runs-on: ubuntu-24.04
     permissions:
-      contents: read
+      contents: write
+      pull-requests: write
       issues: write
     steps:
       - uses: actions/checkout@v6
-      - id: app-token
-        uses: actions/create-github-app-token@v3
-        with:
-          app-id: ${{ vars.GH_APP_ID }}
-          private-key: ${{ secrets.GH_APP_KEY }}
-          owner: citusdata
       - uses: actions/checkout@v6
         with:
           ref: pgxn-citus
           path: work
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ github.token }}
       - name: Check PGXN forward-only semver guard
         id: guard
         env:
@@ -141,7 +132,7 @@ jobs:
       - name: Update pgxn-citus files
         if: steps.guard.outputs.should_update == 'true'
         env:
-          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GH_TOKEN: ${{ github.token }}
           VERSION: ${{ needs.prepare_all_citus.outputs.version }}
           PG_MIN_MAJOR: ${{ needs.prepare_all_citus.outputs.pg_min_major }}
           CHANGELOG_NAME: ${{ inputs.changelog_name }}
@@ -160,7 +151,7 @@ jobs:
         if: steps.guard.outputs.should_update == 'true'
         uses: peter-evans/create-pull-request@v7
         with:
-          token: ${{ steps.app-token.outputs.token }}
+          token: ${{ github.token }}
           path: work
           base: pgxn-citus
           branch: release/pgxn-citus-${{ inputs.citus_tag }}
