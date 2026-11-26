@@ -1,3 +1,3 @@
 pkgname=citus
 pkgdesc='Citus (Open-Source)'
-pkglatest=14.0.0
+pkglatest=14.3.0
