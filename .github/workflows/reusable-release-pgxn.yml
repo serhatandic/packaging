@@ -33,5 +33,5 @@ jobs:
           source pkgvars
           ./scripts/fetch_and_build_pgxn release
           ls -la "$(pwd)/citus-${pkglatest}.zip"
-          unzip -p "$(pwd)/citus-${pkglatest}.zip" "citus-${pkglatest}/META.json"
+          unzip -l "$(pwd)/citus-${pkglatest}.zip" | grep META.json
           echo "[fork-stub] Skipping PGXN upload for citus-${pkglatest}.zip"
