@@ -1,9 +1,6 @@
 name: Build and publish citus community nightly packages
 
 on:
-  push:
-    branches: ["**"]
-    paths-ignore: [".github/**"]
   workflow_dispatch:
 
 permissions:
@@ -11,6 +8,6 @@ permissions:
 
 jobs:
   nightly:
-    uses: citusdata/packaging/.github/workflows/build-citus-community-nightlies.yml@develop
+    uses: serhatandic/packaging/.github/workflows/build-citus-community-nightlies.yml@develop
     secrets: inherit
 

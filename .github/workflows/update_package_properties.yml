@@ -49,7 +49,7 @@ jobs:
           echo "GH_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
           echo "GITHUB_TOKEN=${{ steps.app-token.outputs.token }}" >> "$GITHUB_ENV"
       - name: Setup packaging tools
-        uses: citusdata/packaging/.github/actions/setup-tools@develop
+        uses: serhatandic/packaging/.github/actions/setup-tools@develop
       - name: Set git name and email
         env:
           CHANGELOG_EMAIL: ${{ inputs.microsoft_email }}

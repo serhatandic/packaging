@@ -17,7 +17,7 @@ permissions:
 
 jobs:
   build:
-    uses: citusdata/packaging/.github/workflows/reusable-build-package.yml@develop
+    uses: serhatandic/packaging/.github/workflows/reusable-build-package.yml@develop
     with:
       force_docker: ${{ inputs.force_docker == true }}
     secrets: inherit
