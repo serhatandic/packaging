@@ -42,7 +42,7 @@ jobs:
           token: ${{ steps.app-token.outputs.token }}
 
       - name: Setup packaging tools
-        uses: citusdata/packaging/.github/actions/setup-tools@develop
+        uses: serhatandic/packaging/.github/actions/setup-tools@develop
 
       - name: Update pgxn files
         env:

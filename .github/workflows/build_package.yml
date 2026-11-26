@@ -11,5 +11,5 @@ permissions:
 
 jobs:
   release:
-    uses: citusdata/packaging/.github/workflows/reusable-release-pgxn.yml@develop
+    uses: serhatandic/packaging/.github/workflows/reusable-release-pgxn.yml@develop
     secrets: inherit
